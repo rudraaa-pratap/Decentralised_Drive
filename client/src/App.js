@@ -119,7 +119,6 @@ function App() {
       await loadFiles(account);
 
       setFile(null);
-      setFileName('');
       if (fileInputRef.current) fileInputRef.current.value = '';
       alert("File uploaded successfully!");
     } catch (error) {
@@ -155,62 +154,72 @@ function App() {
   // Not connected
   if (!account) {
     return (
-      <div>
-        <div className="navbar">
-          <h2>D-Drive</h2>
-        </div>
-        <div className="connect-page">
-          <h1>Decentralized Drive</h1>
-          <p>Upload and share files on blockchain</p>
-          <button onClick={connectWallet}>Connect Wallet</button>
-        </div>
+      <div className="connect-page">
+        <h1>Decentralized Drive</h1>
+        <p>Upload and share files securely on the blockchain</p>
+        <button className="connect-btn-large" onClick={connectWallet}>
+          Connect Wallet
+        </button>
       </div>
     );
   }
 
   // Connected
   return (
-    <div>
-      <div className="navbar">
+    <div className="App">
+      <nav className="navbar">
         <h2>D-Drive</h2>
-        <span className="account">{shorten(account)}</span>
-      </div>
+        <div className="account">
+          {account ? `${account.slice(0, 6)}...${account.slice(-4)}` : "Not connected"}
+        </div>
+      </nav>
 
       <div className="container">
-        {/* Upload */}
-        <div className="upload-box">
-          <p>Choose a file to upload to IPFS</p>
-          <input
-            ref={fileInputRef}
-            type="file"
-            onChange={handleFileChange}
+        
+        {/* Upload Section */}
+        <div className="section-card upload-area">
+          <h3 className="section-title">Upload File</h3>
+          <p>Choose a file to securely upload to IPFS</p>
+          <input 
+            type="file" 
+            ref={fileInputRef} 
+            onChange={handleFileChange} 
+            disabled={uploading} 
           />
-          <br />
-          <button onClick={handleUpload} disabled={!file || uploading}>
-            {uploading ? "Uploading..." : "Upload"}
+          <br/>
+          <button className="btn-primary" onClick={handleUpload} disabled={!file || uploading}>
+            {uploading ? "Uploading..." : "Upload to IPFS"}
           </button>
         </div>
 
-        {/* Share Access */}
-        <div className="share-section" style={{ borderTop: '4px solid #e94560' }}>
-          <div style={{ width: '100%', marginBottom: '10px', fontWeight: 'bold' }}>Give Access</div>
-          <input
-            placeholder="Enter address to share your drive"
-            value={shareAddress}
-            onChange={(e) => setShareAddress(e.target.value)}
-          />
-          <button onClick={handleShare} style={{ background: '#e94560' }}>Share</button>
+        {/* Share Section */}
+        <div className="section-card">
+          <h3 className="section-title">Share Access</h3>
+          <div className="input-group">
+            <input 
+              type="text" 
+              className="input-field"
+              placeholder="Enter Ethereum address to grant access" 
+              value={shareAddress}
+              onChange={(e) => setShareAddress(e.target.value)}
+            />
+            <button className="btn-primary" onClick={handleShare}>Share</button>
+          </div>
         </div>
 
-        {/* Get other user's data */}
-        <div className="share-section">
-          <div style={{ width: '100%', marginBottom: '10px', fontWeight: 'bold' }}>View Shared Drive</div>
-          <input
-            placeholder="Enter address to get data"
-            value={otherAddress}
-            onChange={(e) => setOtherAddress(e.target.value)}
-          />
-          <button onClick={handleGetData}>Get Data</button>
+        {/* Get Data Section */}
+        <div className="section-card">
+          <h3 className="section-title">View Shared Drive</h3>
+          <div className="input-group">
+            <input 
+              type="text" 
+              className="input-field"
+              placeholder="Enter owner's address to view their files" 
+              value={otherAddress}
+              onChange={(e) => setOtherAddress(e.target.value)}
+            />
+            <button className="btn-primary" onClick={() => loadFiles(otherAddress)}>View Files</button>
+          </div>
         </div>
 
         {/* Files */}
