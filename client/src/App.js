@@ -142,15 +142,6 @@ function App() {
     }
   };
 
-  // Get data from another address
-  const handleGetData = async () => {
-    if (!otherAddress.trim() || !contract) return;
-    await loadFiles(otherAddress);
-  };
-
-  // Shorten address
-  const shorten = (addr) => addr.slice(0, 6) + '...' + addr.slice(-4);
-
   // Not connected
   if (!account) {
     return (
