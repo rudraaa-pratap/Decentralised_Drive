@@ -7,9 +7,7 @@ import './App.css';
 function App() {
   const [account, setAccount] = useState('');
   const [contract, setContract] = useState(null);
-  const [provider, setProvider] = useState(null);
   const [file, setFile] = useState(null);
-  const [fileName, setFileName] = useState('');
   const [files, setFiles] = useState([]);
   const [otherAddress, setOtherAddress] = useState('');
   const [shareAddress, setShareAddress] = useState('');
@@ -39,7 +37,6 @@ function App() {
         );
 
         setAccount(address);
-        setProvider(provider);
         setContract(contract);
 
         // Listen for account changes
@@ -77,6 +74,7 @@ function App() {
     if (contract && account) {
       loadFiles(account);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [contract, account]);
 
   // Handle file pick
@@ -84,7 +82,6 @@ function App() {
     const f = e.target.files[0];
     if (f) {
       setFile(f);
-      setFileName(f.name);
     }
   };
 
