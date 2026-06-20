@@ -1,3 +1,11 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
 # Node modules
 node_modules/
 client/node_modules/
@@ -10,6 +18,24 @@ typechain-types/
 
 # React Build
 client/build/
+build/Release
 
 # Environment Variables
 .env
+.env.*
+!.env.example
+
+# Next.js build output
+.next
+out
+
+# Dependency directories
+jspm_packages/
+web_modules/
+
+# Typescript
+*.tsbuildinfo
+
+# OS metadata
+.DS_Store
+Thumbs.db
