@@ -1,0 +1,15 @@
+# Node modules
+node_modules/
+client/node_modules/
+
+# Hardhat
+artifacts/
+cache/
+typechain/
+typechain-types/
+
+# React Build
+client/build/
+
+# Environment Variables
+.env
